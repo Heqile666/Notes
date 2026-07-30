@@ -8,7 +8,7 @@ hero:
   actions:
     - theme: brand
       text: 开始阅读
-      link: /notes/hello
+      link: /notes/
 
 features:
   - title: Markdown 写作

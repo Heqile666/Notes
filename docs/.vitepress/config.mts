@@ -17,17 +17,27 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
-      { text: '笔记', link: '/notes/hello' }
+      { text: '笔记', link: '/notes/' }
     ],
 
-    sidebar: [
-      {
-        text: '开始',
-        items: [
-          { text: '第一篇笔记', link: '/notes/hello' }
-        ]
-      }
-    ],
+    sidebar: {
+      '/notes/': [
+        {
+          text: '笔记',
+          items: [
+            { text: '说明', link: '/notes/' }
+          ]
+        }
+        // 添加新分类时，在这里追加一组，例如：
+        // {
+        //   text: 'C++',
+        //   collapsed: false,
+        //   items: [
+        //     { text: '智能指针', link: '/notes/cpp/smart-pointer' }
+        //   ]
+        // }
+      ]
+    },
 
     search: {
       provider: 'local'
