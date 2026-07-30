@@ -31,17 +31,24 @@ export default defineConfig({
         // 每个 text 分组 = 一个目录节点（可折叠），items 里的 link = 一篇笔记
         // 分组里可以再嵌套分组，层级不限
         {
-          text: 'C++',
+          text: '渲染特性',
           collapsed: false,
           items: [
-            { text: '智能指针', link: '/notes/cpp/smart-pointer' },
+            { text: 'SSAO', link: '/notes/rendering-features/ssao' }
+          ]
+        },
+        {
+          text: 'MIKUEngine',
+          collapsed: false,
+          items: [
             {
-              text: 'STL',
+              text: 'RHI',
               collapsed: false,
               items: [
-                { text: 'vector 原理', link: '/notes/cpp/stl/vector' }
+                { text: 'Texture资源创建流程', link: '/notes/miku-engine/rhi/texture-creation' }
               ]
-            }
+            },
+            { text: 'RenderGraph', link: '/notes/miku-engine/render-graph' }
           ]
         }
       ]
