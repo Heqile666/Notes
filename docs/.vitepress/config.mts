@@ -17,33 +17,24 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
-      { text: '笔记', link: '/notes/' }
+      { text: '笔记', link: '/notes/rendering-features/ssao' }
     ],
 
     sidebar: {
       '/notes/': [
-        {
-          text: '笔记',
-          items: [
-            { text: '说明', link: '/notes/' }
-          ]
-        },
-        // 每个 text 分组 = 一个目录节点（可折叠），items 里的 link = 一篇笔记
+        // 每个 text 分组 = 一个目录节点，items 里的 link = 一篇笔记
         // 分组里可以再嵌套分组，层级不限
         {
           text: '渲染特性',
-          collapsed: false,
           items: [
             { text: 'SSAO', link: '/notes/rendering-features/ssao' }
           ]
         },
         {
           text: 'MIKUEngine',
-          collapsed: false,
           items: [
             {
               text: 'RHI',
-              collapsed: false,
               items: [
                 { text: 'Texture资源创建流程', link: '/notes/miku-engine/rhi/texture-creation' }
               ]
