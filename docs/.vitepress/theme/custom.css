@@ -1,0 +1,6 @@
+/* 侧边栏：默认主题只对二层以下分组的子项加缩进和引导线，
+   这里让顶层分组的子项也保持一致，形成完整树形层级 */
+.VPSidebarItem.level-0 > .items {
+  border-left: 1px solid var(--vp-c-divider);
+  padding-left: 16px;
+}

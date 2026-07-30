@@ -26,15 +26,18 @@ export default defineConfig({
         // 分组里可以再嵌套分组，层级不限
         {
           text: '渲染特性',
+          collapsed: false,
           items: [
             { text: 'SSAO', link: '/notes/rendering-features/ssao' }
           ]
         },
         {
           text: 'MIKUEngine',
+          collapsed: false,
           items: [
             {
               text: 'RHI',
+              collapsed: false,
               items: [
                 { text: 'Texture资源创建流程', link: '/notes/miku-engine/rhi/texture-creation' }
               ]
