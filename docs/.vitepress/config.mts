@@ -27,15 +27,23 @@ export default defineConfig({
           items: [
             { text: '说明', link: '/notes/' }
           ]
+        },
+        // 每个 text 分组 = 一个目录节点（可折叠），items 里的 link = 一篇笔记
+        // 分组里可以再嵌套分组，层级不限
+        {
+          text: 'C++',
+          collapsed: false,
+          items: [
+            { text: '智能指针', link: '/notes/cpp/smart-pointer' },
+            {
+              text: 'STL',
+              collapsed: false,
+              items: [
+                { text: 'vector 原理', link: '/notes/cpp/stl/vector' }
+              ]
+            }
+          ]
         }
-        // 添加新分类时，在这里追加一组，例如：
-        // {
-        //   text: 'C++',
-        //   collapsed: false,
-        //   items: [
-        //     { text: '智能指针', link: '/notes/cpp/smart-pointer' }
-        //   ]
-        // }
       ]
     },
 
