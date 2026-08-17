@@ -25,6 +25,13 @@ export default defineConfig({
         // 每个 text 分组 = 一个目录节点，items 里的 link = 一篇笔记
         // 分组里可以再嵌套分组，层级不限
         {
+          text: 'UE4渲染管线',
+          collapsed: false,
+          items: [
+            { text: 'GPU架构', link: '/notes/UE4渲染管线/GPU架构' }
+          ]
+        },
+        {
           text: '渲染特性',
           collapsed: false,
           items: [
