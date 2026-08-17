@@ -39,8 +39,8 @@ GPU 中固化设计好的光栅化图形处理管线，可以每个 Warp 对应�
 
 内存访问行为：
 
-- **贴图采样**：使用采样器进行贴图读取，通过 Texture Processing Unit（TPU），每个 warp 对应几个，或多个 warp 共享几个
-- **Load/Store**（非采样行为的内存读写，包括贴图的写入和 fetch）：通过 Load/Store Unit，每个 warp 对应几个，或多个 warp 共享几个
+- **贴图采样**：使用采样器进行贴图读取，通过 Texture Processing Unit（TPU），每个 warp 对应几个，或多个 warp 共享几个TPU
+- **Load/Store**（非采样行为的内存读写，包括贴图的写入和 fetch）：通过 Load/Store Unit，每个 warp 对应几个，或多个 warp 共享几个Load/Store Unit
 
 <img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-5.png" width="100%" style="display:block;margin:0 auto;" />
 
@@ -81,9 +81,11 @@ GPU 访问到的内存从离芯片的距离（性能从高到底）分为：
 <img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-8.png" width="100%" style="display:block;margin:0 auto;" />
 
 - 12 个 SM
-- 1 个 Raster Engine
-- 每个 RasterEngine 分别对应 1 块 Raster Operation Partition（ROP），每块 ROP 上面有 8 个 ROP Unit，ROP Unit 负责把像素/片元经过深度测试、模板测试、混合等操作后，最终写入 Render Target / Depth Buffer（AI 补充）
-- Texture Processing Cluster（TPC）：6 个贴图采样器
+- 1 个 Raster Engine，负责扫描转换（scan conversion），是光栅化的前端
+- 2 个 ROP 分区（Raster Operation Partition），每个分区 8 个 ROP Unit，负责把像素/片元经过深度测试、模板测试、混合等操作后，最终写入 Render Target / Depth Buffer
+- 6 个 TPC（Texture Processing Cluster），每个 TPC 包含 2 个 SM 和 1 个 PolyMorph Engine
+
+> **Raster Engine（光栅化前端）**：负责光栅化（rasterization），核心工作是扫描转换（scan conversion，即三角形遍历 Triangle Traversal）——逐像素判断三角形覆盖、对被覆盖的像素生成片元（fragment），并用重心坐标插值顶点属性（深度、UV、法线、颜色等）。光栅化细分为两个子步骤：三角形设置（Triangle Setup，计算边方程/导数等）和三角形遍历（Triangle Traversal，即扫描转换）。「前端」是相对 ROP 这个「光栅操作后端」而言：Raster Engine 把几何转成片元，ROP 再把片元写成最终像素。
 
 ## 2.3 SM 架构和 Warp 架构
 
@@ -381,3 +383,22 @@ High-level API 完全黑盒，且 overhead 较大。
 <img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-29.png" width="100%" style="display:block;margin:0 auto;" />
 
 <img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-30.png" width="100%" style="display:block;margin:0 auto;" />
+
+# 参考资料
+
+## NVIDIA（PC 端）
+
+- [NVIDIA Ampere GA102 GPU Architecture 白皮书](https://www.nvidia.com/content/PDF/nvidia-ampere-ga-102-gpu-architecture-whitepaper-v2.pdf)
+- [NVIDIA CUDA C++ Programming Guide](https://docs.nvidia.com/cuda/cuda-programming-guide/index.html)
+- [NVIDIA G80 架构演讲（GDC China 2007）](https://developer.download.nvidia.com/presentations/2007/GDC_China/GDC_Shanghai_07_G80_cn.pdf)
+- [Real World Tech - NVIDIA's GT200: Inside a Parallel Processor](https://www.realworldtech.com/gt200/)
+
+## Arm Mali（移动端）
+
+- [The Bifrost Shader Core（Arm 官方文档 102546）](https://support.arm.com/documentation/102546/0100/The-Bifrost-Shader-Core)
+- [Bifrost 架构家族页](https://support.arm.com/architectures/bifrost)
+- [Mali Bifrost architecture（Mali Offline Compiler 文档）](https://developer.arm.com/documentation/101863/0703/Mali-GPU-pipelines/Mali-Bifrost-architecture)
+
+## 图形学通用
+
+- Real-Time Rendering 4th Edition（RTR4），第 2.4 节 Rasterization
