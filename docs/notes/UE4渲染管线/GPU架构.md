@@ -4,23 +4,23 @@
 
 **Processing Core**：目前不区分做 VS 的 Shading Core 还是做 PS 的 Shading Core，现代 GPU 架构中只有 Unified Shading Core，即统一的 Shading Core 既可以给 VS 做计算也可以为 PS 做计算。
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image.png" width="100%" style="display:block;margin:0 auto;" />
 
 **Core Warp**：由一组 Processing Core 组成，一般称为 Warp，Warp 与 Warp 还能组成一个高维的 Warp Group，同一个 Warp 中的 Processing Core 是高度统一执行步骤的，即指令流一样。
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-1.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-1.png" width="100%" style="display:block;margin:0 auto;" />
 
 **Fixed Pipeline**：一个 Warp 会有几个固定的渲染 Pipeline。
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-2.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-2.png" width="100%" style="display:block;margin:0 auto;" />
 
 **Memory Cache**：每个 Warp 中会有多级 Cache，用于数据缓存。
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-3.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-3.png" width="100%" style="display:block;margin:0 auto;" />
 
 ## 1.2 Shading Core/Processing Core 的组织
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-4.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-4.png" width="100%" style="display:block;margin:0 auto;" />
 
 Shading Core 是进行算数运算的核心单元，现代 GPU 一般是通用架构的 USM ARCH，Core 是由单独的或者共享的算数指令单元组成：
 
@@ -42,11 +42,11 @@ GPU 中固化设计好的光栅化图形处理管线，可以每个 Warp 对应�
 - **贴图采样**：使用采样器进行贴图读取，通过 Texture Processing Unit（TPU），每个 warp 对应几个，或多个 warp 共享几个
 - **Load/Store**（非采样行为的内存读写，包括贴图的写入和 fetch）：通过 Load/Store Unit，每个 warp 对应几个，或多个 warp 共享几个
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-5.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-5.png" width="100%" style="display:block;margin:0 auto;" />
 
 ## 1.4 GPU 内存访问层级
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-6.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-6.png" width="100%" style="display:block;margin:0 auto;" />
 
 GPU 访问到的内存从离芯片的距离（性能从高到底）分为：
 
@@ -65,7 +65,7 @@ GPU 访问到的内存从离芯片的距离（性能从高到底）分为：
 
 ## 2.1 整体预览
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-7.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-7.png" width="100%" style="display:block;margin:0 auto;" />
 
 绿色块里面最小的一个矩形就是一个 Processing Core。
 
@@ -78,7 +78,7 @@ GPU 访问到的内存从离芯片的距离（性能从高到底）分为：
 
 ## 2.2 GPC 架构
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-8.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-8.png" width="100%" style="display:block;margin:0 auto;" />
 
 - 12 个 SM
 - 1 个 Raster Engine
@@ -87,7 +87,7 @@ GPU 访问到的内存从离芯片的距离（性能从高到底）分为：
 
 ## 2.3 SM 架构和 Warp 架构
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-9.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-9.png" width="55%" style="display:block;margin:0 auto;" />
 
 - 4 个 warp
 - 共享 4 个 Texture Unit
@@ -104,7 +104,7 @@ GPU 访问到的内存从离芯片的距离（性能从高到底）分为：
 
 与 PC 端相比，移动端的 Processing Core 就很少了。
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-10.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-10.png" width="100%" style="display:block;margin:0 auto;" />
 
 这里的 Shader Core 就是 Warp，(Processing Unit) Process Core -> Shader Core（Warp）。
 
@@ -113,7 +113,7 @@ GPU 访问到的内存从离芯片的距离（性能从高到底）分为：
 
 ## 3.1 移动端 Warp 架构
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-11.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-11.png" width="55%" style="display:block;margin:0 auto;" />
 
 一个 warp 里面有一套固定管线（光栅化，Varying Unit，early test，late test，blend 和 tile write）。
 
@@ -126,7 +126,7 @@ GPU 访问到的内存从离芯片的距离（性能从高到底）分为：
 
 虽然物理上一个 warp 只有 2 个 core，但多个任务可以组成一组。
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-12.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-12.png" width="100%" style="display:block;margin:0 auto;" />
 
 如 16 个任务被一个 warp 处理（相当于一个 warp 的大小是 16），简单来说就是一个 Warp 将这个任务循环了 8 次，这样可以提高硬件利用率。
 
@@ -140,7 +140,7 @@ GPU 访问到的内存从离芯片的距离（性能从高到底）分为：
 
 任务处理的基本单元包括：单个 RenderPass 内的所有 Fragment Process（就是说有的 pixel shader 部分），以及 Non-Fragment Process（vs/gs/tessellation，对顶点的处理即非像素的处理）。
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-13.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-13.png" width="100%" style="display:block;margin:0 auto;" />
 
 现代 API 都有多线程提交渲染命令的功能，如上图所示一个线程提交的是 RenderPassA 的渲染命令，另一个提交的是 RenderpassB 的渲染命令，这些渲染命令会被驱动分拣成两部分，一部分是像素部分的处理，另一部分就是顶点部分的处理，不同 Pass 的像素部分处理和顶点部分的处理是可以并行的，但是同一个 RenderPass 的会保证 nonfrag-tiling-frag 处理的顺序，处理同一个 Work 时会尽量利用满所有的 shader core。
 
@@ -152,13 +152,13 @@ GPU 访问到的内存从离芯片的距离（性能从高到底）分为：
 
 ### 1. Dual-Pass Geometry Process
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-14.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-14.png" width="100%" style="display:block;margin:0 auto;" />
 
 移动端 GPU 会做两遍 VS，尽量减少不可见的 vertex 的计算，第一段先使用 position only 的 shader 计算 position，做 clipping 和 culling，第二遍再进行完整的 vs 计算。
 
 > 注：position only 是指在原来的 vs 计算中只涉及 position 的计算，不涉及其他属性的计算，如 uv、顶点色的输出等。
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-15.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-15.png" width="100%" style="display:block;margin:0 auto;" />
 
 Tile buffer Rendering 可以减少内存访问的带宽，片上内存（L2 Cache）可以放下一个 tile 的渲染数据（rt、stencil buffer、depth buffer），不必再访问内存，减少内存访问的带宽。
 
@@ -168,21 +168,21 @@ Tile buffer Rendering 可以减少内存访问的带宽，片上内存（L2 Cach
 
 GPU 需要遵循固化的流程并为它提供数据，GPU 的工作流程是被精心设计过的，固定流程部分：设置参数和开关（如开启关闭深度测试）。设置可编程部分的程序：即 shader。为管线填充数据：在显存上创建对象，并绑定到固定的绑定点。
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-16.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-16.png" width="55%" style="display:block;margin:0 auto;" />
 
 ## 4.2 API
 
 API 是基于 GPU 的工作规则对 GPU 下达的命令，它由 Driver 转述成 GPU 可以执行的指令。
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-17.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-17.png" width="100%" style="display:block;margin:0 auto;" />
 
 现在图形 API 开放了很多底层操作，现代开发者需要做内存管理、GPU 与 CPU 同步管理等。
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-18.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-18.png" width="100%" style="display:block;margin:0 auto;" />
 
 ## 4.3 移动端硬件的特殊优化
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-19.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-19.png" width="100%" style="display:block;margin:0 auto;" />
 
 TBR 首先对所有 DrawCall 走 vs/gs 流程，之后会收集所有的顶点数据，做 BinningPass，将所有顶点数据分到不同的 Tile 上，然后对每个 Tile 光栅化再进行渲染。
 
@@ -207,7 +207,7 @@ TBR 首先对所有 DrawCall 走 vs/gs 流程，之后会收集所有的顶点�
 
 如图所示，红圈区域都是渲染过程中的瓶颈。
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-20.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-20.png" width="100%" style="display:block;margin:0 auto;" />
 
 ## 5.1 API
 
@@ -217,7 +217,7 @@ TBR 首先对所有 DrawCall 走 vs/gs 流程，之后会收集所有的顶点�
 
 此外，对于不同的 drawcall，需要不断地切换渲染状态（是否开启深度测试，是否开启 blend），这些都是非常耗时的。
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-21.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-21.png" width="100%" style="display:block;margin:0 auto;" />
 
 所以总结起来，影响性能的地方一共有四个方面：
 
@@ -226,7 +226,7 @@ TBR 首先对所有 DrawCall 走 vs/gs 流程，之后会收集所有的顶点�
 3. 绘制指令提交次数
 4. 同时绑定的资源槽数量限制
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-22.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-22.png" width="100%" style="display:block;margin:0 auto;" />
 
 目前常用的措施有：
 
@@ -248,7 +248,7 @@ TBR 首先对所有 DrawCall 走 vs/gs 流程，之后会收集所有的顶点�
 
 ## 5.2 Shader Processor
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-23.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-23.png" width="100%" style="display:block;margin:0 auto;" />
 
 如图是 Apple A9 GPU 在一个 cycle 内可以做的操作：
 
@@ -260,11 +260,11 @@ TBR 首先对所有 DrawCall 走 vs/gs 流程，之后会收集所有的顶点�
 - 尽量使用 half 而不是 Float，少使用 int（int 运算器很少）
 - 尽量使用 MAD 操作，因为 MAD 操作和 ADD/MUL 操作所使用的时间相等
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-24.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-24.png" width="100%" style="display:block;margin:0 auto;" />
 
 此外应该避免分支代码。
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-25.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-25.png" width="100%" style="display:block;margin:0 auto;" />
 
 如图所示，图中一共有 32 个像素，当进入到分支运算的时候一部分像素进入到 if 分支计算，那么另一部分像素没有进入到 if 分支就需要等待，这样就会造成一个像素的计算结果时间变长。
 
@@ -295,7 +295,7 @@ TBR 首先对所有 DrawCall 走 vs/gs 流程，之后会收集所有的顶点�
 
 可以按照下面的方式来设计渲染流程：
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-26.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-26.png" width="100%" style="display:block;margin:0 auto;" />
 
 此外也可以专门做一个 AlphaTest Pass，先绘制 AlphaTest 物体的深度值，之后在正常做不透明物体的绘制，然后再绘制 AlphaTest 物体，通过对 AlphaTest 物体的深度值是否和当前深度缓冲中的值相等来判断是否对该片元进行 shading。
 
@@ -307,7 +307,7 @@ TBR 首先对所有 DrawCall 走 vs/gs 流程，之后会收集所有的顶点�
 
 对于 Low-level 的 api 来说，A 和 B 的 vs 阶段可以并行执行，但是 ps 阶段只能等待 A 的 ps 完成之后，才能进行 drawCall B 的绘制。
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-27.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-27.png" width="100%" style="display:block;margin:0 auto;" />
 
 ## 5.3 BandWidth
 
@@ -372,12 +372,12 @@ High-level API 完全黑盒，且 overhead 较大。
 
 贴图问题：ASTC 压缩算法对齐问题。
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-28.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-28.png" width="100%" style="display:block;margin:0 auto;" />
 
 # 6 性能工具
 
 这里不再赘述。
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-29.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-29.png" width="100%" style="display:block;margin:0 auto;" />
 
-![](https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-30.png)
+<img src="https://cdn.jsdelivr.net/gh/Heqile666/NotesImgaes@main/img/gpu-architecture/image-30.png" width="100%" style="display:block;margin:0 auto;" />
