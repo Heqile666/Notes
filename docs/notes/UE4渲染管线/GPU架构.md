@@ -84,8 +84,7 @@ GPU 访问到的内存从离芯片的距离（性能从高到底）分为：
 - 1 个 Raster Engine，负责扫描转换（scan conversion），是光栅化的前端
 - 2 个 ROP 分区（Raster Operation Partition），每个分区 8 个 ROP Unit，负责把像素/片元经过深度测试、模板测试、混合等操作后，最终写入 Render Target / Depth Buffer
 - 6 个 TPC（Texture Processing Cluster），每个 TPC 包含 2 个 SM 和 1 个 PolyMorph Engine
-顶点着色 → 几何处理(PolyMorph) → Raster Engine(光栅化) → 像素着色(SM) → ROP(深度/模板/混合/写入)
-              [几何]                 [片元生成]              [着色]            [输出]
+
 > **Raster Engine（光栅化前端）**：负责光栅化（rasterization），核心工作是扫描转换（scan conversion，即三角形遍历 Triangle Traversal）——逐像素判断三角形覆盖、对被覆盖的像素生成片元（fragment），并用重心坐标插值顶点属性（深度、UV、法线、颜色等）。光栅化细分为两个子步骤：三角形设置（Triangle Setup，计算边方程/导数等）和三角形遍历（Triangle Traversal，即扫描转换）。「前端」是相对 ROP 这个「光栅操作后端」而言：Raster Engine 把几何转成片元，ROP 再把片元写成最终像素。
 
 ```text
